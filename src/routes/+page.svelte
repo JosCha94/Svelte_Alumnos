@@ -29,6 +29,25 @@
       .catch(console.log);
   };
 
+  let agregarEmpleado = () => {
+    const nuevoEmpleado = {
+      id: datosEmpleado.id,
+      nombre: datosEmpleado.nombre,
+      correo: datosEmpleado.correo,
+    };
+
+    fetch("http://localhost/API%20Empleados/?insertar=1",{
+      method:"POST",
+      body:JSON.stringify(nuevoEmpleado)
+    })
+      .then((respuesta) => respuesta.json())
+      .then((datosRespuesta) => {
+        mostrarEmpleados();
+
+      })
+      .catch(console.log);
+  };
+
   mostrarEmpleados();
 </script>
 
@@ -44,15 +63,17 @@
           <form>
             <div class="mb-3">
               <label for="Nombre" class="form-label">Nombre</label>
-              <input type="text" class="form-control" id="Nombre" />
+              <input type="text" bind:value={datosEmpleado.nombre} class="form-control" id="Nombre" />
             </div>
             <div class="mb-3">
               <label for="Correo" class="form-label">Correo</label>
-              <input type="email" class="form-control" id="Correo" />
+              <input type="email" bind:value={datosEmpleado.correo} class="form-control" id="Correo" />
             </div>
 
-            <button type="button" class="btn btn-primary"
-              >Agregar Empleado</button
+            <button
+              type="button"
+              class="btn btn-primary"
+              on:click|preventDefault={agregarEmpleado}>Agregar Empleado</button
             >
             <button type="button" class="btn btn-primary"
               >Actualizar Empleado</button
@@ -77,7 +98,10 @@
               <th>{empleado.id}</th>
               <td>{empleado.nombre}</td>
               <td>{empleado.correo}</td>
-              <td><button class="btn btn-warning" type="submit">Editar</button> | <button class="btn btn-danger" type="submit">Borrar</button></td>
+              <td
+                ><button class="btn btn-warning" type="submit">Editar</button> |
+                <button class="btn btn-danger" type="submit">Borrar</button></td
+              >
             </tr>
           {/each}
         </tbody>
