@@ -1,5 +1,5 @@
 <script>
-// @ts-nocheck
+  // @ts-nocheck
 
   import { json } from "@sveltejs/kit";
   import "bootstrap/dist/css/bootstrap.min.css";
@@ -17,11 +17,11 @@
 
   let mostrarEmpleados = () => {
     fetch("http://localhost/API%20Empleados/")
-      .then(respuesta => respuesta.json())
+      .then((respuesta) => respuesta.json())
       .then((datosRespuesta) => {
         empleados = datosRespuesta;
 
-        datosRespuesta = {
+        datosEmpleado = {
           id: null,
           nombre: "",
           correo: "",
@@ -38,25 +38,40 @@
       correo: datosEmpleado.correo,
     };
 
-    fetch("http://localhost/API%20Empleados/?insertar=1",{
-      method:"POST",
-      body:JSON.stringify(nuevoEmpleado)
+    fetch("http://localhost/API%20Empleados/?insertar=1", {
+      method: "POST",
+      body: JSON.stringify(nuevoEmpleado),
     })
-      .then(respuesta => respuesta.json())
+      .then((respuesta) => respuesta.json())
       .then((datosRespuesta) => {
         // console.log(datosRespuesta) PARA VER SI HAY ERRORES
         mostrarEmpleados();
-
       })
       .catch(console.log);
   };
 
-  let borrarEmpleado = id =>{
-    fetch("http://localhost/API%20Empleados/?borrar="+id)
-      .then(respuesta => respuesta.json())
+  let borrarEmpleado = (id) => {
+    fetch("http://localhost/API%20Empleados/?borrar=" + id)
+      .then((respuesta) => respuesta.json())
       .then((datosRespuesta) => {
         mostrarEmpleados();
+      })
+      .catch(console.log);
+  };
 
+  let editarEmpleado = (empleado) => {
+    datosEmpleado = empleado;
+  };
+
+  let actualizarEmpleado = () => {
+    fetch("http://localhost/API%20Empleados/?actualizar=" +datosEmpleado.id, {
+      method: "POST",
+      body: JSON.stringify(datosEmpleado),
+    })
+      .then((respuesta) => respuesta.json())
+      .then((datosRespuesta) => {
+        // console.log(datosRespuesta) PARA VER SI HAY ERRORES
+        mostrarEmpleados();
       })
       .catch(console.log);
   };
@@ -75,22 +90,46 @@
         <div class="card-body">
           <form>
             <div class="mb-3">
-              <label for="Nombre" class="form-label">Nombre</label>
-              <input type="text" bind:value={datosEmpleado.nombre} class="form-control" id="Nombre" />
-            </div>
-            <div class="mb-3">
-              <label for="Correo" class="form-label">Correo</label>
-              <input type="email" bind:value={datosEmpleado.correo} class="form-control" id="Correo" />
-            </div>
+              <label for="ID" class="form-label">ID</label>
+              <input
+                type="text"
+                bind:value={datosEmpleado.id}
+                class="form-control"
+                id="ID"
+                readonly
+              />
+              <div class="mb-3">
+                <label for="Nombre" class="form-label">Nombre</label>
+                <input
+                  type="text"
+                  bind:value={datosEmpleado.nombre}
+                  class="form-control"
+                  id="Nombre"
+                />
+              </div>
+              <div class="mb-3">
+                <label for="Correo" class="form-label">Correo</label>
+                <input
+                  type="email"
+                  bind:value={datosEmpleado.correo}
+                  class="form-control"
+                  id="Correo"
+                />
+              </div>
 
-            <button
-              type="button"
-              class="btn btn-primary"
-              on:click|preventDefault={agregarEmpleado}>Agregar Empleado</button
-            >
-            <button type="button" class="btn btn-primary"
-              >Actualizar Empleado</button
-            >
+              <button
+                type="button"
+                class="btn btn-primary"
+                on:click|preventDefault={agregarEmpleado}
+                >Agregar Empleado</button
+              >
+              <button
+                type="button"
+                class="btn btn-primary"
+                on:click|preventDefault={actualizarEmpleado}
+                >Actualizar Empleado</button
+              >
+            </div>
           </form>
         </div>
       </div>
@@ -112,8 +151,17 @@
               <td>{empleado.nombre}</td>
               <td>{empleado.correo}</td>
               <td
-                ><button class="btn btn-warning" type="submit">Editar</button> |
-                <button class="btn btn-danger" type="submit" on:click={borrarEmpleado(empleado.id)}>Borrar</button></td
+                ><button
+                  class="btn btn-warning"
+                  type="submit"
+                  on:click={editarEmpleado(empleado)}>Editar</button
+                >
+                |
+                <button
+                  class="btn btn-danger"
+                  type="submit"
+                  on:click={borrarEmpleado(empleado.id)}>Borrar</button
+                ></td
               >
             </tr>
           {/each}
