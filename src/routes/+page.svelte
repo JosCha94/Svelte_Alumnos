@@ -9,12 +9,14 @@
    * @type {any[]}
    */
   let empleados = [];
+  let activado = true;
   let datosEmpleado = {
     id: null,
     nombre: "",
     correo: "",
   };
 
+  // MOSTRAR
   let mostrarEmpleados = () => {
     fetch("http://localhost/API%20Empleados/")
       .then((respuesta) => respuesta.json())
@@ -26,11 +28,13 @@
           nombre: "",
           correo: "",
         };
+        activado=true;
         // console.log(empleados); PARA VER LOS DATOS Q TRAE
       })
       .catch(console.log);
   };
 
+  // AGREGAR
   let agregarEmpleado = () => {
     const nuevoEmpleado = {
       id: datosEmpleado.id,
@@ -50,6 +54,7 @@
       .catch(console.log);
   };
 
+  // BORRAR
   let borrarEmpleado = (id) => {
     fetch("http://localhost/API%20Empleados/?borrar=" + id)
       .then((respuesta) => respuesta.json())
@@ -59,12 +64,15 @@
       .catch(console.log);
   };
 
+  // EDITAR
   let editarEmpleado = (empleado) => {
     datosEmpleado = empleado;
+    activado = false;
   };
 
+  // ACTUALIZAR
   let actualizarEmpleado = () => {
-    fetch("http://localhost/API%20Empleados/?actualizar=" +datosEmpleado.id, {
+    fetch("http://localhost/API%20Empleados/?actualizar=" + datosEmpleado.id, {
       method: "POST",
       body: JSON.stringify(datosEmpleado),
     })
@@ -72,6 +80,7 @@
       .then((datosRespuesta) => {
         // console.log(datosRespuesta) PARA VER SI HAY ERRORES
         mostrarEmpleados();
+        activado = true;
       })
       .catch(console.log);
   };
@@ -121,13 +130,19 @@
                 type="button"
                 class="btn btn-primary"
                 on:click|preventDefault={agregarEmpleado}
+                disabled={!activado}
                 >Agregar Empleado</button
               >
               <button
                 type="button"
                 class="btn btn-primary"
                 on:click|preventDefault={actualizarEmpleado}
-                >Actualizar Empleado</button
+                disabled={activado}>Actualizar Empleado</button
+              >
+              <button
+                type="button"
+                class="btn btn-danger"
+                on:click|preventDefault={mostrarEmpleados}>Cancelar</button
               >
             </div>
           </form>
