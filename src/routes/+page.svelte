@@ -1,4 +1,6 @@
 <script>
+// @ts-nocheck
+
   import { json } from "@sveltejs/kit";
   import "bootstrap/dist/css/bootstrap.min.css";
   import "bootstrap/dist/js/bootstrap.min.js";
@@ -15,7 +17,7 @@
 
   let mostrarEmpleados = () => {
     fetch("http://localhost/API%20Empleados/")
-      .then((respuesta) => respuesta.json())
+      .then(respuesta => respuesta.json())
       .then((datosRespuesta) => {
         empleados = datosRespuesta;
 
@@ -24,7 +26,7 @@
           nombre: "",
           correo: "",
         };
-        console.log(empleados);
+        // console.log(empleados); PARA VER LOS DATOS Q TRAE
       })
       .catch(console.log);
   };
@@ -40,7 +42,18 @@
       method:"POST",
       body:JSON.stringify(nuevoEmpleado)
     })
-      .then((respuesta) => respuesta.json())
+      .then(respuesta => respuesta.json())
+      .then((datosRespuesta) => {
+        // console.log(datosRespuesta) PARA VER SI HAY ERRORES
+        mostrarEmpleados();
+
+      })
+      .catch(console.log);
+  };
+
+  let borrarEmpleado = id =>{
+    fetch("http://localhost/API%20Empleados/?borrar="+id)
+      .then(respuesta => respuesta.json())
       .then((datosRespuesta) => {
         mostrarEmpleados();
 
@@ -100,7 +113,7 @@
               <td>{empleado.correo}</td>
               <td
                 ><button class="btn btn-warning" type="submit">Editar</button> |
-                <button class="btn btn-danger" type="submit">Borrar</button></td
+                <button class="btn btn-danger" type="submit" on:click={borrarEmpleado(empleado.id)}>Borrar</button></td
               >
             </tr>
           {/each}
