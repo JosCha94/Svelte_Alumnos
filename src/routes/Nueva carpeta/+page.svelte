@@ -18,7 +18,7 @@
 
   // MOSTRAR
   let mostrarEmpleados = () => {
-    fetch("http://localhost/API%20Empleados/laravel_api_empleados/public/api/empleados") //CON LARAVEL
+    fetch("http://localhost/API%20Empleados%20con%20LARAVEL/laravel_api_empleados/public/api/empleados") //CON LARAVEL
       .then((respuesta) => respuesta.json())
       .then((datosRespuesta) => {
         empleados = datosRespuesta;
@@ -26,10 +26,10 @@
         datosEmpleado = {
           id: null,
           nombre: "",
-
+          correo: "",
         };
         activado=true;
-        //  console.log(empleados); //PARA VER LOS DATOS Q TRAE
+          console.log(empleados); //PARA VER LOS DATOS Q TRAE
          console.log(empleados);
       })
       .catch(console.log);
@@ -44,7 +44,7 @@
     };
 
     fetch("http://localhost/API%20Empleados/?insertar=1", { // CON PHP
-      // fetch("http://localhost/API%20Empleados/laravel_api_empleados/public/api/empleado", {
+      // fetch("http://localhost/API%20Empleados%20con%20LARAVEL/laravel_api_empleados/public/api/empleado", {
       method: "POST",
       body: JSON.stringify(nuevoEmpleado),
     })
