@@ -16,9 +16,8 @@
     correo: "",
   };
 
-  // MOSTRAR
-  let mostrarEmpleados = () => {   
-    fetch("http://localhost/API%20Empleados%20con%20LARAVEL/laravel_api_empleados/public/api/empleados") //CON LARAVEL
+  // // MOSTRAR
+  let mostrarEmpleados = () => {       fetch("http://localhost/API%20Empleados%20con%20LARAVEL/laravel_api_empleados/public/api/empleados") //CON LARAVEL
       .then((respuesta) => respuesta.json())
       .then((datosRespuesta) => {
         empleados = datosRespuesta;
@@ -54,36 +53,36 @@
       .catch(console.log);
   };
 
-  // BORRAR
-  let borrarEmpleado = (id) => {
-    fetch("http://localhost/API%20Empleados/?borrar=" + id)
-      .then((respuesta) => respuesta.json())
-      .then((datosRespuesta) => {
-        mostrarEmpleados();
-      })
-      .catch(console.log);
-  };
+  // // BORRAR
+  // let borrarEmpleado = (id) => {
+  //   fetch("http://localhost/API%20Empleados/?borrar=" + id)
+  //     .then((respuesta) => respuesta.json())
+  //     .then((datosRespuesta) => {
+  //       mostrarEmpleados();
+  //     })
+  //     .catch(console.log);
+  // };
 
-  // EDITAR
-  let editarEmpleado = (empleado) => {
-    datosEmpleado = empleado;
-    activado = false;
-  };
+  // // EDITAR
+  // let editarEmpleado = (empleado) => {
+  //   datosEmpleado = empleado;
+  //   activado = false;
+  // };
 
-  // ACTUALIZAR
-  let actualizarEmpleado = () => {
-    fetch("http://localhost/API%20Empleados/?actualizar=" + datosEmpleado.id, {
-      method: "POST",
-      body: JSON.stringify(datosEmpleado),
-    })
-      .then((respuesta) => respuesta.json())
-      .then((datosRespuesta) => {
-        // console.log(datosRespuesta) PARA VER SI HAY ERRORES
-        mostrarEmpleados();
-        activado = true;
-      })
-      .catch(console.log);
-  };
+  // // ACTUALIZAR
+  // let actualizarEmpleado = () => {
+  //   fetch("http://localhost/API%20Empleados/?actualizar=" + datosEmpleado.id, {
+  //     method: "POST",
+  //     body: JSON.stringify(datosEmpleado),
+  //   })
+  //     .then((respuesta) => respuesta.json())
+  //     .then((datosRespuesta) => {
+  //       // console.log(datosRespuesta) PARA VER SI HAY ERRORES
+  //       mostrarEmpleados();
+  //       activado = true;
+  //     })
+  //     .catch(console.log);
+  // };
 
   mostrarEmpleados();
 </script>
