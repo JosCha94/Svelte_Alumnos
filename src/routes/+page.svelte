@@ -27,7 +27,6 @@
           id: null,
           nombre: "",
           correo: "",
-          correo: "",
         };
         activado=true;
         //  console.log(empleados); //PARA VER LOS DATOS Q TRAE
