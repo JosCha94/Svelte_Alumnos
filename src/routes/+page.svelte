@@ -18,7 +18,7 @@
 
   // MOSTRAR
   let mostrarEmpleados = () => {
-    fetch("http://localhost/API%20Empleados/")
+    fetch("http://localhost/API%20Empleados/") 
       .then((respuesta) => respuesta.json())
       .then((datosRespuesta) => {
         empleados = datosRespuesta;
@@ -29,7 +29,8 @@
           correo: "",
         };
         activado=true;
-        // console.log(empleados); PARA VER LOS DATOS Q TRAE
+        //  console.log(empleados); //PARA VER LOS DATOS Q TRAE
+         console.log(empleados);
       })
       .catch(console.log);
   };
@@ -48,7 +49,7 @@
     })
       .then((respuesta) => respuesta.json())
       .then((datosRespuesta) => {
-        // console.log(datosRespuesta) PARA VER SI HAY ERRORES
+        // console.log(datosRespuesta) // PARA VER SI HAY ERRORES
         mostrarEmpleados();
       })
       .catch(console.log);
