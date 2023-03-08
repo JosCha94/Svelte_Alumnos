@@ -26,7 +26,7 @@
         datosEmpleado = {
           id: null,
           nombre: "",
-          correo: "",
+
         };
         activado=true;
         //  console.log(empleados); //PARA VER LOS DATOS Q TRAE
