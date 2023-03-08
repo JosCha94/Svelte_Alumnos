@@ -13,7 +13,7 @@
   let datosEmpleado = {
     id: null,
     nombre: "",
-    correo: "",
+
   };
 
   // MOSTRAR
