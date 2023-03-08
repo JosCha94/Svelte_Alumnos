@@ -16,78 +16,78 @@
     correo: "",
   };
 
-  // MOSTRAR
-  let mostrarEmpleados = () => {
-    fetch("http://localhost/API%20Empleados%20con%20LARAVEL/laravel_api_empleados/public/api/empleados") //CON LARAVEL
-      .then((respuesta) => respuesta.json())
-      .then((datosRespuesta) => {
-        empleados = datosRespuesta;
+  // // MOSTRAR
 
-        datosEmpleado = {
-          id: null,
-          nombre: "",
-          correo: "",
-        };
-        activado=true;
-          console.log(empleados); //PARA VER LOS DATOS Q TRAE
-         console.log(empleados);
-      })
-      .catch(console.log);
-  };
+  // let mostrarEmpleados = () => {
+  //   fetch("http://localhost/API%20Empleados%20con%20LARAVEL/laravel_api_empleados/public/api/empleados")
+  //     .then((respuesta) => respuesta.json())
+  //     .then((datosRespuesta) => {
+  //       empleados = datosRespuesta;
+
+  //       datosEmpleado = {
+  //         id: null,
+  //         nombre: "",
+  //         correo: "",
+  //       };
+  //       activado=true;
+  //         // console.log(empleados); //PARA VER LOS DATOS Q TRAE
+  //        console.log(empleados);
+  //     })
+  //     .catch(console.log);
+  // };
 
   // AGREGAR
-  let agregarEmpleado = () => {
-    const nuevoEmpleado = {
-      id: datosEmpleado.id,
-      nombre: datosEmpleado.nombre,
-      correo: datosEmpleado.correo,
-    };
+//   let agregarEmpleado = () => {
+//     const nuevoEmpleado = {
+//       id: datosEmpleado.id,
+//       nombre: datosEmpleado.nombre,
+//       correo: datosEmpleado.correo,
+//     };
 
-    fetch("http://localhost/API%20Empleados/?insertar=1", { // CON PHP
-      // fetch("http://localhost/API%20Empleados%20con%20LARAVEL/laravel_api_empleados/public/api/empleado", {
-      method: "POST",
-      body: JSON.stringify(nuevoEmpleado),
-    })
-      .then((respuesta) => respuesta.json())
-      .then((datosRespuesta) => {
-        // console.log(datosRespuesta) // PARA VER SI HAY ERRORES
-        mostrarEmpleados();
-      })
-      .catch(console.log);
-  };
+// fetch("http://localhost/API%20Empleados%20con%20LARAVEL/laravel_api_empleados/public/api/empleado", {
+//       method: "POST",
+//       body: JSON.stringify(nuevoEmpleado),
+//     })
+//       .then((respuesta) => respuesta.json())
+//       .then((datosRespuesta) => {
+//         // console.log(datosRespuesta) // PARA VER SI HAY ERRORES
+//         mostrarEmpleados();
+//       })
+//       .catch(console.log);
+//   };
 
   // BORRAR
-  let borrarEmpleado = (id) => {
-    fetch("http://localhost/API%20Empleados/?borrar=" + id)
-      .then((respuesta) => respuesta.json())
-      .then((datosRespuesta) => {
-        mostrarEmpleados();
-      })
-      .catch(console.log);
-  };
+  // let borrarEmpleado = (id) => {
+  //   fetch("http://localhost/API%20Empleados%20con%20LARAVEL/?borrar=" + id)
+  //     .then((respuesta) => respuesta.json())
+  //     .then((datosRespuesta) => {
+  //       mostrarEmpleados();
+  //     })
+  //     .catch(console.log);
+  // };
 
   // EDITAR
-  let editarEmpleado = (empleado) => {
-    datosEmpleado = empleado;
-    activado = false;
-  };
+  // let editarEmpleado = (empleado) => {
+  //   datosEmpleado = empleado;
+  //   activado = false;
+  // };
 
   // ACTUALIZAR
-  let actualizarEmpleado = () => {
-    fetch("http://localhost/API%20Empleados/?actualizar=" + datosEmpleado.id, {
-      method: "POST",
-      body: JSON.stringify(datosEmpleado),
-    })
-      .then((respuesta) => respuesta.json())
-      .then((datosRespuesta) => {
-        // console.log(datosRespuesta) PARA VER SI HAY ERRORES
-        mostrarEmpleados();
-        activado = true;
-      })
-      .catch(console.log);
-  };
+  // let actualizarEmpleado = () => {
+  //   fetch("http://localhost/API%20Empleados%20con%20LARAVEL/?actualizar=" + datosEmpleado.id, {
+  //     method: "POST",
+  //     body: JSON.stringify(datosEmpleado),
+  //   })
+  //     .then((respuesta) => respuesta.json())
+  //     .then((datosRespuesta) => {
+  //       // console.log(datosRespuesta) PARA VER SI HAY ERRORES
+  //       mostrarEmpleados();
+  //       activado = true;
+  //     })
+  //     .catch(console.log);
+  // };
 
-  mostrarEmpleados();
+  // mostrarEmpleados();
 </script>
 
 <div class="container my-3">
@@ -132,8 +132,7 @@
                 type="button"
                 class="btn btn-primary"
                 on:click|preventDefault={agregarEmpleado}
-                disabled={!activado}
-                >Agregar Empleado</button
+                disabled={!activado}>Agregar Empleado</button
               >
               <button
                 type="button"
