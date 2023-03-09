@@ -17,7 +17,10 @@
   };
 
   // // MOSTRAR
-  let mostrarEmpleados = () => {       fetch("http://localhost/API%20Empleados%20con%20LARAVEL/laravel_api_empleados/public/api/empleados") //CON LARAVEL
+  let mostrarEmpleados = () => {
+    fetch(
+      "http://localhost/API%20Empleados%20con%20LARAVEL/laravel_api_empleados/public/api/empleados"
+    ) 
       .then((respuesta) => respuesta.json())
       .then((datosRespuesta) => {
         empleados = datosRespuesta;
@@ -25,11 +28,10 @@
         datosEmpleado = {
           id: null,
           nombre: "",
-
+          correo: "",
         };
-        activado=true;
+        activado = true;
         //  console.log(empleados); //PARA VER LOS DATOS Q TRAE
-         console.log(empleados);
       })
       .catch(console.log);
   };
@@ -41,10 +43,16 @@
       nombre: datosEmpleado.nombre,
       correo: datosEmpleado.correo,
     };
-      fetch("http://localhost/API%20Empleados%20con%20LARAVEL/laravel_api_empleados/public/api/empleado", {
-      method: "POST",
-      body: JSON.stringify(nuevoEmpleado),
-    })
+    fetch(
+   "http://localhost/API%20Empleados%20con%20LARAVEL/laravel_api_empleados/public/api/empleado",
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(nuevoEmpleado),
+      })
+    
       .then((respuesta) => respuesta.json())
       .then((datosRespuesta) => {
         // console.log(datosRespuesta) // PARA VER SI HAY ERRORES
@@ -53,36 +61,41 @@
       .catch(console.log);
   };
 
-  // // BORRAR
-  // let borrarEmpleado = (id) => {
-  //   fetch("http://localhost/API%20Empleados/?borrar=" + id)
-  //     .then((respuesta) => respuesta.json())
-  //     .then((datosRespuesta) => {
-  //       mostrarEmpleados();
-  //     })
-  //     .catch(console.log);
-  // };
+  // BORRAR
+  let borrarEmpleado = (id) => {
+    fetch("http://localhost/API%20Empleados%20con%20LARAVEL/laravel_api_empleados/public/api/empleado" + id, {
+      method: "DELETE"
+    })
+      .then((respuesta) => respuesta.json())
+      .then((datosRespuesta) => {
+        mostrarEmpleados();
+      })
+      .catch(console.log);
+  };
 
-  // // EDITAR
-  // let editarEmpleado = (empleado) => {
-  //   datosEmpleado = empleado;
-  //   activado = false;
-  // };
+  // EDITAR
+  let editarEmpleado = (empleado) => {
+    datosEmpleado = empleado;
+    activado = false;
+  };
 
-  // // ACTUALIZAR
-  // let actualizarEmpleado = () => {
-  //   fetch("http://localhost/API%20Empleados/?actualizar=" + datosEmpleado.id, {
-  //     method: "POST",
-  //     body: JSON.stringify(datosEmpleado),
-  //   })
-  //     .then((respuesta) => respuesta.json())
-  //     .then((datosRespuesta) => {
-  //       // console.log(datosRespuesta) PARA VER SI HAY ERRORES
-  //       mostrarEmpleados();
-  //       activado = true;
-  //     })
-  //     .catch(console.log);
-  // };
+  // ACTUALIZAR
+  let actualizarEmpleado = () => {
+    fetch("http://localhost/API%20Empleados%20con%20LARAVEL/laravel_api_empleados/public/api/empleado", {
+      method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(datosEmpleado),
+    })
+      .then((respuesta) => respuesta.json())
+      .then((datosRespuesta) => {
+        // console.log(datosRespuesta) PARA VER SI HAY ERRORES
+        mostrarEmpleados();
+        activado = true;
+      })
+      .catch(console.log);
+  };
 
   mostrarEmpleados();
 </script>
@@ -96,7 +109,7 @@
       <div class="card">
         <div class="card-header">Empleados</div>
         <div class="card-body">
-          <form>
+          <form on:submit|preventDefault={agregarEmpleado}>
             <div class="mb-3">
               <label for="ID" class="form-label">ID</label>
               <input
@@ -126,11 +139,9 @@
               </div>
 
               <button
-                type="button"
+                type="submit"
                 class="btn btn-primary"
-                on:click|preventDefault={agregarEmpleado}
-                disabled={!activado}
-                >Agregar Empleado</button
+                disabled={!activado}>Agregar Empleado</button
               >
               <button
                 type="button"
