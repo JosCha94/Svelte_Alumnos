@@ -16,56 +16,56 @@
     correo: "",
   };
 
-  // // MOSTRAR
-  let mostrarEmpleados = () => {
-    fetch(
+  // MOSTRAR
+  let mostrarEmpleados = async () => {
+    const respuesta = await fetch(
       "http://localhost/API%20Empleados%20con%20LARAVEL/laravel_api_empleados/public/api/empleados"
-    ) 
-      .then((respuesta) => respuesta.json())
-      .then((datosRespuesta) => {
-        empleados = datosRespuesta;
-
-        datosEmpleado = {
-          id: null,
-          nombre: "",
-          correo: "",
-        };
-        activado = true;
-        //  console.log(empleados); //PARA VER LOS DATOS Q TRAE
-      })
-      .catch(console.log);
+    );
+    const datos = await respuesta.json();
+    empleados = datos;
+    datosEmpleado = {
+      id: null,
+      nombre: "",
+      correo: "",
+    };
+    activado = true;
   };
 
   // AGREGAR
-  let agregarEmpleado = () => {
+  let agregarEmpleado = async () => {
     const nuevoEmpleado = {
       id: datosEmpleado.id,
       nombre: datosEmpleado.nombre,
       correo: datosEmpleado.correo,
     };
-    fetch(
-   "http://localhost/API%20Empleados%20con%20LARAVEL/laravel_api_empleados/public/api/empleado",
+    const preg = await fetch(
+      "http://localhost/API%20Empleados%20con%20LARAVEL/laravel_api_empleados/public/api/empleado",
       {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
         body: JSON.stringify(nuevoEmpleado),
-      })
-    
-      .then((respuesta) => respuesta.json())
-      .then((datosRespuesta) => {
-        // console.log(datosRespuesta) // PARA VER SI HAY ERRORES
-        mostrarEmpleados();
-      })
-      .catch(console.log);
+      }
+    );
+    const respuesta = await preg.json();
+    if (respuesta.estado == 1) {
+      alert(respuesta.message)
+      mostrarEmpleados();
+    }else{
+      alert(respuesta.message)
+    }
   };
 
   // BORRAR
   let borrarEmpleado = (id) => {
-    fetch("http://localhost/API%20Empleados%20con%20LARAVEL/laravel_api_empleados/public/api/empleado" + id, {
-      method: "DELETE"
-    })
+    fetch(
+      "http://localhost/API%20Empleados%20con%20LARAVEL/laravel_api_empleados/public/api/empleado" +
+        id,
+      {
+        method: "DELETE",
+      }
+    )
       .then((respuesta) => respuesta.json())
       .then((datosRespuesta) => {
         mostrarEmpleados();
@@ -81,13 +81,16 @@
 
   // ACTUALIZAR
   let actualizarEmpleado = () => {
-    fetch("http://localhost/API%20Empleados%20con%20LARAVEL/laravel_api_empleados/public/api/empleado", {
-      method: "PUT",
+    fetch(
+      "http://localhost/API%20Empleados%20con%20LARAVEL/laravel_api_empleados/public/api/empleado",
+      {
+        method: "PUT",
         headers: {
           "Content-Type": "application/json",
         },
         body: JSON.stringify(datosEmpleado),
-    })
+      }
+    )
       .then((respuesta) => respuesta.json())
       .then((datosRespuesta) => {
         // console.log(datosRespuesta) PARA VER SI HAY ERRORES
@@ -138,10 +141,8 @@
                 />
               </div>
 
-              <button
-                type="submit"
-                class="btn btn-primary"
-                disabled={!activado}>Agregar Empleado</button
+              <button type="submit" class="btn btn-primary" disabled={!activado}
+                >Agregar Empleado</button
               >
               <button
                 type="button"
