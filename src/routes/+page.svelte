@@ -18,7 +18,7 @@
 
   // MOSTRAR
   let mostrarEmpleados = () => {
-    fetch("http://localhost/API%20Empleados/") 
+    fetch("http://localhost/API%20Empleados%20con%20PHP/") 
       .then((respuesta) => respuesta.json())
       .then((datosRespuesta) => {
         empleados = datosRespuesta;
@@ -43,7 +43,7 @@
       correo: datosEmpleado.correo,
     };
 
-    fetch("http://localhost/API%20Empleados/?insertar=1", {
+    fetch("http://localhost/API%20Empleados%20con%20PHP/?insertar=1", {
       method: "POST",
       body: JSON.stringify(nuevoEmpleado),
     })
@@ -57,7 +57,7 @@
 
   // BORRAR
   let borrarEmpleado = (id) => {
-    fetch("http://localhost/API%20Empleados/?borrar=" + id)
+    fetch("http://localhost/API%20Empleados%20con%20PHP/?borrar=" + id)
       .then((respuesta) => respuesta.json())
       .then((datosRespuesta) => {
         mostrarEmpleados();
@@ -73,7 +73,7 @@
 
   // ACTUALIZAR
   let actualizarEmpleado = () => {
-    fetch("http://localhost/API%20Empleados/?actualizar=" + datosEmpleado.id, {
+    fetch("http://localhost/API%20Empleados%20con%20PHP/?actualizar=" + datosEmpleado.id, {
       method: "POST",
       body: JSON.stringify(datosEmpleado),
     })
