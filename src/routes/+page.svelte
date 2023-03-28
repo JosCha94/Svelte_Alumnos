@@ -106,7 +106,7 @@
 <div class="container my-3">
   <div class="row gap-xs-3">
     <h1 class="text-center mb-4">
-      API DE EMPLEADOS <span class="h3"> con svelte</span>
+      API DE EMPLEADOS <span class="h3"> consvelte</span>
     </h1>
     <div class="col-12 col-sm-6">
       <div class="card">
