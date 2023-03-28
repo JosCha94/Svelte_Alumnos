@@ -18,7 +18,7 @@
 
   // MOSTRAR
   let mostrarEmpleados = () => {
-    fetch("http://localhost/API%20Empleados%20con%20PHP/") 
+    fetch("http://localhost/API%20Empleados%20con%20PHP/")
       .then((respuesta) => respuesta.json())
       .then((datosRespuesta) => {
         empleados = datosRespuesta;
@@ -28,9 +28,9 @@
           nombre: "",
           correo: "",
         };
-        activado=true;
+        activado = true;
         //  console.log(empleados); //PARA VER LOS DATOS Q TRAE
-         console.log(empleados);
+        console.log(empleados);
       })
       .catch(console.log);
   };
@@ -73,10 +73,14 @@
 
   // ACTUALIZAR
   let actualizarEmpleado = () => {
-    fetch("http://localhost/API%20Empleados%20con%20PHP/?actualizar=" + datosEmpleado.id, {
-      method: "POST",
-      body: JSON.stringify(datosEmpleado),
-    })
+    fetch(
+      "http://localhost/API%20Empleados%20con%20PHP/?actualizar=" +
+        datosEmpleado.id,
+      {
+        method: "POST",
+        body: JSON.stringify(datosEmpleado),
+      }
+    )
       .then((respuesta) => respuesta.json())
       .then((datosRespuesta) => {
         // console.log(datosRespuesta) PARA VER SI HAY ERRORES
@@ -131,8 +135,7 @@
                 type="button"
                 class="btn btn-primary"
                 on:click|preventDefault={agregarEmpleado}
-                disabled={!activado}
-                >Agregar Empleado</button
+                disabled={!activado}>Agregar Empleado</button
               >
               <button
                 type="button"
@@ -176,9 +179,10 @@
                 <button
                   class="btn btn-danger"
                   type="submit"
-                  on:click={borrarEmpleado(empleado.id)}>Borrar</button
-                ></td
-              >
+                  on:click={borrarEmpleado(empleado.id)}
+                  >Borrar
+                </button>
+              </td>
             </tr>
           {/each}
         </tbody>
